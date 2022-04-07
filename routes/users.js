@@ -1,3 +1,4 @@
+const moment = require('moment');
 var express = require("express");
 const { nanoid } = require("nanoid");
 const db = require("../utils/db");
@@ -25,12 +26,13 @@ router.post("/:login", async function (req, res) {
       res.setHeader("Content-Type", "application/json");
       let AccessToken = new Promise((resolve, reject) => {
         let accessToken = nanoid();
+        let expireDate = moment(moment().add(4, "hours")).format("YYYY-MM-DD HH:MM");
         db.run(
           `INSERT INTO AccessTokens(UserID, AccessToken, Device, ExpireDate) VALUES
         (${userDataA.ID},
         "${accessToken}",
         "${req.header("User-Agent")}",
-        "${new Date()}")
+        "${expireDate}")
       `,
           (error) => (error ? reject(error) : resolve(accessToken))
         );
