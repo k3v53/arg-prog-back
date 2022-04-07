@@ -3,7 +3,7 @@ var router = express.Router();
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  res.render('index', { title: 'Torneo Arg Prog API' });
+  res.render('index', { title: 'Torneo Arg Prog' });
 });
 
 module.exports = router;
